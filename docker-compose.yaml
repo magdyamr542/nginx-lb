@@ -5,5 +5,14 @@ services:
         build: .
         volumes:
             - ./:/code
+    proxy:
+        image: nginx:1.21.4-alpine
+        restart: always
+        build:
+          context: ./nginx
         ports:
-            - "8080:8080"
+            - "8080:80"
+        volumes:
+          - ./nginx/conf.d/:/etc/nginx/conf.d
+        depends_on:
+          - backend
