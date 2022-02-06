@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const ip = require("ip");
 
 const app = express();
 app.set('view engine', 'pug')
@@ -7,9 +8,7 @@ app.set('view engine', 'pug')
 const port = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
-  const headers = req.headers;
-  const ips = req.ips;
-  res.render('index', { title: 'Nginx Load balancing',  headers : JSON.stringify(headers) , ips : JSON.stringify(ips) })
+  res.render('index', { title: 'Nginx Load balancing',    server_ip : ip.address() })
 });
 
 app.listen(port , () => {
